@@ -49,17 +49,6 @@ function NavBar() {
                Login/SignUp
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/AddHouse"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                Add House
-              </NavLink>
-            </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
