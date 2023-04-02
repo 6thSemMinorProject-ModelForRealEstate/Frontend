@@ -1,11 +1,10 @@
-import "./App.css";
-import NavBar from "./components/NavBar";
+import NavBar from "../components/NavBar";
 import { BrowserRouter as Router,  Route, Routes } from "react-router-dom";
-import { Home } from "./components/Pages/Home";
-import { AvailableHouses } from "./components/Pages/AvailableHouses";
-import { Login} from "./components/Pages/Login";
+import { Home } from "../components/Home";
+import { AvailableHouses } from "../components/AvailableHouses";
+import { Login} from "../components/Login";
 
-function App() {
+function AppRoutes() {
   return (
     
     <>
@@ -25,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppRoutes;
