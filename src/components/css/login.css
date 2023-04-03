@@ -45,13 +45,15 @@
     flex-direction: column;
   }
   
-  label {
+  .margin-top {
     margin-top: 10px;
   }
   
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
+  #login-username, 
+  #login-password,
+  #signup-email,
+  #signup-password,
+  #signup-name {
     border: none;
     background-color: #c9b8b881;
     padding: 10px;
