@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import pic from "../images/house_Predictions.png";
 import "./css/login.css";
 
 export const Login = () => {
@@ -9,7 +10,11 @@ export const Login = () => {
   };
 
   return (
+    
     <div className="container">
+      <div className="imgContainer" >
+        <img id="house_Predictions" src={pic} alt="house" />
+      </div>
       {showLogin ? (
         <div className="login-box">
           <h2>Login</h2>
@@ -27,6 +32,7 @@ export const Login = () => {
             <button onClick={toggleForm}>Sign up</button>
           </p>
         </div>
+        
       ) : (
         <div className="signup-box">
           <h2>Sign Up</h2>
@@ -46,6 +52,7 @@ export const Login = () => {
             Already have an account?{" "}
             <button onClick={toggleForm}>Login</button>
           </p>
+         
         </div>
       )}
     </div>

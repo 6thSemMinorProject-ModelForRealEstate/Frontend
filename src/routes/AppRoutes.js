@@ -1,7 +1,7 @@
 import NavBar from "../components/NavBar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Home } from "../components/Home";
-import { AvailableHouses } from "../components/AvailableHouses";
+import { Predict } from "../components/Predict";
 import { Login } from "../components/Login";
 
 function AppRoutes() {
@@ -10,7 +10,7 @@ function AppRoutes() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/AvailableHouses" element={<AvailableHouses />} />
+        <Route path="/Predict" element={<Predict />} />
         <Route path="/Login" element={<Login />} />
       </Routes>
     </Router>

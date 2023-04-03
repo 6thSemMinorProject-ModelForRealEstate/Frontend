@@ -1,24 +1,38 @@
+#house_Predictions{
+  width: 600px;
+  height: 440px;
+  float: right;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.imgContainer{
+  margin: 20px;
+}
+
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 85vh;
   }
   
   .signup-link {
-    margin-top: 50px;
+    margin-top: 30px;
   }
   
   
   .login-box,
   .signup-box {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(204, 243, 247, 0.8);
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
     max-width: 400px;
     width: 100%;
-    margin: 30px;
+    margin: 20px;
+    overflow: hidden;
   }
   
   .login-box h2,
@@ -47,7 +61,7 @@
   }
   
   button[type="submit"] {
-    background-color: #0101f7;
+    background-color: #04045e;
     color: rgb(254, 253, 253);
     border: none;
     padding: 10px;
@@ -58,12 +72,12 @@
   }
   
   button[type="submit"]:hover {
-    background-color: #1302f7;
+    background-color:#04045e;
    
   }
   
   button {
-    background-color: #1302f7;
+    background-color: #04045e;
     color: white;
     border: none;
     padding: 5px;
@@ -73,7 +87,7 @@
   }
   
   button:hover {
-    background-color: #1302f7;
+    background-color: #04045e;
   }
   
   @media only screen and (min-width: 768px) {
@@ -88,4 +102,4 @@
     }
   }
   
-  
+ 
