@@ -28,7 +28,7 @@ function AppRoutes() {
         <Route path="/Predict" element={<Predict />} />
         <Route path="/Login" element={<Login setIsLogin = {setIsLogin} />} />
         <Route path="/Signup" element={<Signup setIsLogin = {setIsLogin} />} />
-        <Route path="/AddHouse" element={<AddHouse setIsLogin = {setIsLogin} />} />
+        <Route path={isLogin?"/AddHouse":"/"} element={<AddHouse setIsLogin = {setIsLogin} />} />
       </Routes>
     </Router>
   );

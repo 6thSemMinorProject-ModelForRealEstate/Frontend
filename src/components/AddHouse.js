@@ -18,9 +18,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import CelebrationIcon from "@mui/icons-material/Celebration";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 export const AddHouse = () => {
   const [area, setArea] = useState("");
@@ -37,17 +37,10 @@ export const AddHouse = () => {
   const [carParking, setCarParking] = useState("");
   const [liftAvailable, setLiftAvailable] = useState("");
   const [furnishing, setFurnishing] = useState("");
-
   const [wantedPrice, setWantedPrice] = useState("");
-  const [predictedPrice, setPredictedPrice] = useState("");
-
-
-
-
-
+  const [predictedPrice, setPredictedPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  // const [predictedPrice, setPredictedPrice] = useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,9 +58,71 @@ export const AddHouse = () => {
       theme: "light",
     });
 
-  const handleClose = (e) => {
+  const handleClose = async(e) => {
     setOpen(false);
-    if (e === 2) {
+    
+      
+    
+      if(e == 2) {
+        const config = {
+          headers: {
+            // "Content-type": "application/json",
+            "Authorization": `Bearer ${JSON.parse(localStorage.getItem("userInfo")).token}`,
+          },
+        };
+        console.log("Config",config);
+        // alert();
+        // return;
+        
+        const body = {
+          userId: JSON.parse(localStorage.getItem("userInfo")).user._id,
+          area: area,
+          noOfBedrooms: noOfBedrooms,
+          gymnasium: gymnasium,
+          swimmingPool: swimmingPool,
+          landscapeGardens: landscapeGardens,
+          indoorGames: indoorGames,
+          sportsFacility: sportsFacility,
+          atm: atm,
+          clubhouse: clubhouse,
+          security: security,
+          powerbackup: powerbackup,
+          carParking: carParking,
+          liftAvailable: liftAvailable,
+          furnishing: furnishing,
+          wantedPrice: wantedPrice,
+          predictedPrice: predictedPrice
+        };
+
+        try{
+          const result = await Axios.post("/house/availableHouses", body, config);
+          console.log(JSON.stringify(result.data), "sUCESS...");
+          setLoading(false);
+          if(result.status) {
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "House added successfully...",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            
+          }
+      
+        }catch(err) {
+          console.log("ERROR...", err);
+          Swal.fire({
+            position: "top-center",
+            icon: "error",
+            title: "Some error occurred...",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          setLoading(false);
+            
+        }
+      } 
+
       setArea("");
       setNoOfBedrooms("");
       setGymnasium("");
@@ -84,7 +139,6 @@ export const AddHouse = () => {
       setFurnishing("");
       setWantedPrice("");
       setPredictedPrice("");
-    }
   };
 
   const handleSubmit = async () => {
@@ -163,11 +217,6 @@ export const AddHouse = () => {
       return;
     }
 
-    if (predictedPrice == "") {
-      notify("Wanted price is required...");
-      return;
-    }
-
 
     setLoading(true);
     const config = {
@@ -198,7 +247,7 @@ export const AddHouse = () => {
       const result = await Axios.post("/prediction/predict", body, config);
 
       console.log(JSON.stringify(result.data), "sUCESS...");
-      setLoading(false);
+      
       setPredictedPrice(result.data.price);
       handleClickOpen();
     } catch (err) {
@@ -228,7 +277,7 @@ export const AddHouse = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  name="firstName"
+                  name="area"
                   fullWidth
                   autoComplete="given-name"
                   id="standard-basic"
@@ -241,7 +290,7 @@ export const AddHouse = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  id="lastName"
+                  id="noOfBedrooms"
                   name="lastName"
                   label="No. Of Bedrooms"
                   fullWidth
@@ -502,20 +551,7 @@ export const AddHouse = () => {
                   onChange={(event) => setWantedPrice(event.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="lastName"
-                  name="lastName"
-                  label="Predicted price"
-                  fullWidth
-                  autoComplete="family-name"
-                  variant="standard"
-                  required
-                  type="number"
-                  value={predictedPrice}
-                  onChange={(event) => setPredictedPrice(event.target.value)}
-                />
-              </Grid>
+              
 
 
 
@@ -544,17 +580,17 @@ export const AddHouse = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"House added sucessfully"} <CelebrationIcon />
+          {"Preicted price of your house is"} {predictedPrice}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Estimated Price:- {predictedPrice}
+            Do you want to add this house in selling list?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleClose(1)}>Edit Details</Button>
+          <Button onClick={() => handleClose(1)}>No</Button>
           <Button onClick={() => handleClose(2)} autoFocus>
-            Okay
+            Yes
           </Button>
         </DialogActions>
       </Dialog>

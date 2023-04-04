@@ -70,7 +70,7 @@ function NavBar(props) {
               {
                 props.isLogin?<NavLink
                 exact
-                to="/Home"
+                to="/"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleLogout}
