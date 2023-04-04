@@ -4,6 +4,7 @@ import { Home } from "../components/Home";
 import { Predict } from "../components/Predict";
 import { Login } from "../components/Login";
 import { Signup } from "../components/Signup";
+import {AddHouse} from "../components/AddHouse";
 import { useEffect, useState } from "react";
 
 function AppRoutes() {
@@ -27,6 +28,7 @@ function AppRoutes() {
         <Route path="/Predict" element={<Predict />} />
         <Route path="/Login" element={<Login setIsLogin = {setIsLogin} />} />
         <Route path="/Signup" element={<Signup setIsLogin = {setIsLogin} />} />
+        <Route path="/AddHouse" element={<AddHouse setIsLogin = {setIsLogin} />} />
       </Routes>
     </Router>
   );

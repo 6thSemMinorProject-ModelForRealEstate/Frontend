@@ -39,6 +39,7 @@ function NavBar(props) {
                 Home
               </NavLink>
             </li>
+
             <li className="nav-item">
               <NavLink
                 exact
@@ -50,24 +51,26 @@ function NavBar(props) {
                 Predict
               </NavLink>
             </li>
+
             {
               props.isLogin &&  <li className="nav-item">
               <NavLink
                 exact
-                to="/"
+                to="/AddHouse"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-                Add Hosue
+                Add House
               </NavLink>
             </li>
             }
+            
             <li className="nav-item">
               {
                 props.isLogin?<NavLink
                 exact
-                to="/"
+                to="/Home"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleLogout}
