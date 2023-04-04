@@ -40,7 +40,7 @@
     text-align: center;
   }
   
-  form {
+  .form {
     display: flex;
     flex-direction: column;
   }
@@ -62,7 +62,7 @@
     font-size: 16px;
   }
   
-  button[type="submit"] {
+  .submitButton {
     background-color: #04045e;
     color: rgb(254, 253, 253);
     border: none;
@@ -73,7 +73,7 @@
     margin-top: 10px;
   }
   
-  button[type="submit"]:hover {
+  .submitButton:hover {
     background-color:#04045e;
    
   }

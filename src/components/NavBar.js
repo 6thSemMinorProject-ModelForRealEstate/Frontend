@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./css/NavBar.css";
 
-function NavBar() {
+function NavBar(props) {
+  console.log("PROPS"+props.isLogin);
   const [click, setClick] = useState(false);
+  
+  
+  // console.log(userExists);
 
   const handleClick = () => setClick(!click);
+
+  const handleLogout = () => {
+    localStorage.removeItem('userInfo');
+    setClick(!click);
+    props.setIsLogin(false)
+    // setUser(false);
+  }
+  
   return (
     <>
       <nav className="navbar">
@@ -38,8 +50,30 @@ function NavBar() {
                 Predict
               </NavLink>
             </li>
-            <li className="nav-item">
+            {
+              props.isLogin &&  <li className="nav-item">
               <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Add Hosue
+              </NavLink>
+            </li>
+            }
+            <li className="nav-item">
+              {
+                props.isLogin?<NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleLogout}
+              >
+               Logout
+              </NavLink>:<NavLink
                 exact
                 to="/Login"
                 activeClassName="active"
@@ -48,6 +82,8 @@ function NavBar() {
               >
                Login/SignUp
               </NavLink>
+              }
+              
             </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>

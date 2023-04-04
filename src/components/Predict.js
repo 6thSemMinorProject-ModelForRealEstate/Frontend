@@ -186,10 +186,10 @@ export const Predict = () => {
 
   return (
     
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }} >
+    <Container component="main" maxWidth="sm" sx={{ mb: 0 }}>
       <Paper
         variant="outlined"
-        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+        sx={{ my: { xs: 3, md: 4 }, p: { xs: 2, md: 3 } }}
       >
         <Typography
           component="h1"
@@ -205,7 +205,7 @@ export const Predict = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  name="firstName"
+                  name="area"
                   fullWidth
                   autoComplete="given-name"
                   id="standard-basic"
@@ -218,8 +218,8 @@ export const Predict = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  id="lastName"
-                  name="lastName"
+                  id="noOfBedrooms"
+                  name="noOfBedrooms"
                   label="No. Of Bedrooms"
                   fullWidth
                   autoComplete="family-name"
@@ -516,8 +516,6 @@ export const Predict = () => {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />
     </Container>
     
   );
