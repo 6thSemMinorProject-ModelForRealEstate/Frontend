@@ -41,7 +41,7 @@ export const Signup = (props) => {
       userAge: 0,
     };
 
-    alert(JSON.stringify(body))
+    
 
     const config = {
       headers: {
@@ -148,7 +148,7 @@ export const Signup = (props) => {
         <p>
           {" "}
           <br></br>
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <button onClick={() => navigate("/Login")}>Login</button>
         </p>
       </div>
