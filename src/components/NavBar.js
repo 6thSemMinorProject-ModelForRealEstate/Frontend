@@ -52,6 +52,18 @@ function NavBar(props) {
               </NavLink>
             </li>
 
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/Team"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+               Our Team
+              </NavLink>
+            </li>
+
             {
               props.isLogin &&  <li className="nav-item">
               <NavLink
