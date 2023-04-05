@@ -51,7 +51,7 @@ export const Team = () => {
 
               <ul class="team-icon">
 
-                <li><a href="/#" class="linkedin">
+                <li><a href="https://www.linkedin.com/in/badri-vishal-singhal/" class="linkedin">
                   <i class="fa fa-linkedin"></i>
                 </a></li>
               </ul>
