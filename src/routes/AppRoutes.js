@@ -5,7 +5,10 @@ import { Predict } from "../components/Predict";
 import { Login } from "../components/Login";
 import { Signup } from "../components/Signup";
 import {AddHouse} from "../components/AddHouse";
+import {Team} from "../components/Team";
 import { useEffect, useState } from "react";
+
+
 
 function AppRoutes() {
   const [isLogin, setIsLogin] =  useState(false);
@@ -26,6 +29,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Predict" element={<Predict />} />
+        <Route path="/Team" element={<Team />} />
         <Route path="/Login" element={<Login setIsLogin = {setIsLogin} />} />
         <Route path="/Signup" element={<Signup setIsLogin = {setIsLogin} />} />
         <Route path={isLogin?"/AddHouse":"/"} element={<AddHouse setIsLogin = {setIsLogin} />} />
