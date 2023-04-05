@@ -185,11 +185,12 @@ export const Predict = () => {
   };
 
   return (
-    
+    <>
+    <div className="bg1">
     <Container component="main" maxWidth="sm" sx={{ mb: 0 }}>
       <Paper
         variant="outlined"
-        sx={{ my: { xs: 3, md: 4 }, p: { xs: 2, md: 3 } }}
+        sx={{ my: { xs: 0, md: 0 }, p: { xs: 2, md: 3 } }}
       >
         <Typography
           component="h1"
@@ -517,6 +518,7 @@ export const Predict = () => {
         theme="light"
       />
     </Container>
-    
+    </div>
+    </>
   );
 };
