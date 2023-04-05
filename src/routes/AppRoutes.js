@@ -7,6 +7,8 @@ import { Signup } from "../components/Signup";
 import {AddHouse} from "../components/AddHouse";
 import {Team} from "../components/Team";
 import { useEffect, useState } from "react";
+import { Footer } from "../components/Footer";
+
 
 
 
@@ -34,6 +36,8 @@ function AppRoutes() {
         <Route path="/Signup" element={<Signup setIsLogin = {setIsLogin} />} />
         <Route path={isLogin?"/AddHouse":"/"} element={<AddHouse setIsLogin = {setIsLogin} />} />
       </Routes>
+      <Footer />
+      
     </Router>
   );
 }

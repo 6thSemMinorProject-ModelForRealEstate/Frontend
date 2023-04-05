@@ -3,12 +3,14 @@ import pic from "../images/house.png";
 import pic1 from "../images/buyHome.webp";
 import pic2 from "../images/sellHome.webp";
 import pic3 from "../images/predictHome.webp";
+import pic4 from "../images/recomendation.png";
 
 import "./css/home.css";
 
 export const Home = () => {
   return (
     <>
+     
     <div class="cards">
         <div class="card">
           <div class="card__image-holder">
@@ -75,7 +77,20 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      
+      <div class="recomendation">
+        <div class="recomendation1">
+            <h5 class="recomendation-heading">Add your house to get listed</h5>
+            <span class="recomendation-description">Sign in for a more personalized experience.</span>
+            <br />
+            <button class="recomendation-button">
+                Sign in
+            </button>
+        </div>
+        <div class="recomendation2">
+           <img src={pic4} class="recommendationimg" />
+        </div>
+    </div>
+   
     </>
   );
 };
