@@ -13,7 +13,7 @@ export const Team = () => {
 
     <section class="section-white">
 
-      <div class="container">
+      <div class="">
 
         <div class="row">
 
