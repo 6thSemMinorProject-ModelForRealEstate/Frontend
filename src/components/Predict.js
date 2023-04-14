@@ -19,8 +19,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CelebrationIcon from "@mui/icons-material/Celebration";
+import Autocomplete from '@mui/material/Autocomplete';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import locations from './location'
+import values from "./values";
+
 
 export const Predict = () => {
   const [area, setArea] = useState("");
@@ -30,16 +34,22 @@ export const Predict = () => {
   const [landscapeGardens, setLandscapeGardens] = useState("");
   const [indoorGames, setIndoorGames] = useState("");
   const [sportsFacility, setSportsFacility] = useState("");
-  const [atm, setAtm] = useState("");
+  const [resale, setResale] = useState("");
   const [clubhouse, setClubhouse] = useState("");
   const [security, setSecurity] = useState("");
   const [powerbackup, setPowerbackup] = useState("");
   const [carParking, setCarParking] = useState("");
-  const [liftAvailable, setLiftAvailable] = useState("");
+  const [joggingTrack, setJoggingTrack] = useState("");
   const [furnishing, setFurnishing] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [predictedPrice, setPredictedPrice] = useState(0);
+  const [city, setCity] = useState("");
+  const [location, setLocation] = useState("");
+  const [rainWaterHarvesting, setRainWaterHarvesting] = useState("");
+
+
+  const cities = ["Bangalore","Chennai","Delhi","Hyderabad","Kolkata","Mumbai"];
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,7 +58,7 @@ export const Predict = () => {
   const notify = (msg) =>
     toast.error(msg, {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -58,6 +68,7 @@ export const Predict = () => {
     });
 
   const handleClose = (e) => {
+    
     setOpen(false);
     if (e === 2) {
       setArea("");
@@ -67,17 +78,20 @@ export const Predict = () => {
       setLandscapeGardens("");
       setIndoorGames("");
       setSportsFacility("");
-      setAtm("");
+      setResale("");
       setClubhouse("");
       setSecurity("");
       setPowerbackup("");
       setCarParking("");
-      setLiftAvailable("");
-      setFurnishing("");
+      setJoggingTrack("");
+      setRainWaterHarvesting("");
+      setCity(null);
+      setLocation(null);
     }
   };
 
   const handleSubmit = async () => {
+    
     if (area == "") {
       notify("Area is required...");
       return;
@@ -113,7 +127,7 @@ export const Predict = () => {
       return;
     }
 
-    if (atm == "" && atm != 0) {
+    if (resale == "" && resale != 0) {
       notify("Please choose one option from atm field...");
       return;
     }
@@ -138,8 +152,13 @@ export const Predict = () => {
       return;
     }
 
-    if (liftAvailable == "" && liftAvailable != 0) {
+    if (joggingTrack == "" && joggingTrack != 0) {
       notify("Please choose one option from lift available field...");
+      return;
+    }
+
+    if (rainWaterHarvesting == "" && rainWaterHarvesting != 0) {
+      notify("Please choose one option from furnishing field...");
       return;
     }
 
@@ -148,12 +167,18 @@ export const Predict = () => {
       return;
     }
 
+    
+
+
+
     setLoading(true);
     const config = {
       headers: {
         "Content-type": "application/json",
       },
     };
+    
+
     const body = {
       area: area,
       noOfBedrooms: noOfBedrooms,
@@ -162,14 +187,18 @@ export const Predict = () => {
       landscapeGardens: landscapeGardens,
       indoorGames: indoorGames,
       sportsFacility: sportsFacility,
-      atm: atm,
+      resale: resale,
       clubhouse: clubhouse,
       security: security,
       powerbackup: powerbackup,
       carParking: carParking,
-      liftAvailable: liftAvailable,
-      furnishing: furnishing,
+      joggingTrack: joggingTrack,
+      rainWaterHarvesting: rainWaterHarvesting,
+      city: values[city],
+      location: values[location],
+      furnishing: furnishing
     };
+    
 
     try {
       const result = await Axios.post("/prediction/predict", body, config);
@@ -250,6 +279,32 @@ export const Predict = () => {
                     <MenuItem value={0}>Gymnasium not want</MenuItem>
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <Autocomplete
+                  value={city}
+                  disablePortal
+                  id="combo-box-demo"
+                  options={cities}
+                  fullWidth
+                  onChange={(event, newValue) => {
+                    setCity(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} label="City" fullWidth />}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Autocomplete
+                  value={location}
+                  disablePortal
+                  id="combo-box-demo"
+                  options={(city!="" && city!=null)?locations[city]:[]}
+                  fullWidth
+                  onChange={(event, newValue) => {
+                    setLocation(newValue)
+                  }}
+                  renderInput={(params) => <TextField {...params} label="Location" fullWidth />}
+                />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -333,20 +388,20 @@ export const Predict = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="Atm ">Atm </InputLabel>
+                  <InputLabel id="Resale ">Resale </InputLabel>
                   <Select
-                    labelId="Atm"
+                    labelId="Resale"
                     id="demo-simple-select"
-                    label="Atm"
+                    label="Resale"
                     type="number"
-                    value={atm}
-                    onChange={(event) => setAtm(event.target.value)}
+                    value={resale}
+                    onChange={(event) => setResale(event.target.value)}
                   >
                     <MenuItem value="" disabled selected>
                       --Please select an option--
                     </MenuItem>
-                    <MenuItem value={1}>Atm want</MenuItem>
-                    <MenuItem value={0}>Atm not want</MenuItem>
+                    <MenuItem value={1}>Resaled House</MenuItem>
+                    <MenuItem value={0}>Not Resaled House</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -428,20 +483,39 @@ export const Predict = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="Lift Available">Lift Available</InputLabel>
+                  <InputLabel id="Jogging Track">Jogging Track</InputLabel>
                   <Select
-                    labelId="Lift Available"
+                    labelId="Jogging Track"
                     id="demo-simple-select"
-                    label="Lift Available"
+                    label="Jogging Track"
                     type="number"
-                    value={liftAvailable}
-                    onChange={(event) => setLiftAvailable(event.target.value)}
+                    value={joggingTrack}
+                    onChange={(event) => setJoggingTrack(event.target.value)}
                   >
                     <MenuItem value="" disabled selected>
                       --Please select an option--
                     </MenuItem>
-                    <MenuItem value={1}>Lift want</MenuItem>
-                    <MenuItem value={0}>Lift not want</MenuItem>
+                    <MenuItem value={1}>Jogging Track want</MenuItem>
+                    <MenuItem value={0}>Jogging Track not want</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="Rain Water Harvesting">Rain Water Harvesting</InputLabel>
+                  <Select
+                    labelId="Rain Water Harvesting"
+                    id="demo-simple-select"
+                    label="Rain Water Harvesting"
+                    type="number"
+                    value={rainWaterHarvesting}
+                    onChange={(event) => setRainWaterHarvesting(event.target.value)}
+                  >
+                    <MenuItem value="" disabled selected>
+                      --Please select an option--
+                    </MenuItem>
+                    <MenuItem value={1}>Rain Water Harvesting want</MenuItem>
+                    <MenuItem value={0}>Rain Water Harvesting not want</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

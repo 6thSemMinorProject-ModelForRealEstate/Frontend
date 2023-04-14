@@ -22,6 +22,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import locations from './location'
+import values from "./values";
+import Autocomplete from '@mui/material/Autocomplete';
+
 export const AddHouse = () => {
   const [area, setArea] = useState("");
   const [noOfBedrooms, setNoOfBedrooms] = useState("");
@@ -30,17 +34,21 @@ export const AddHouse = () => {
   const [landscapeGardens, setLandscapeGardens] = useState("");
   const [indoorGames, setIndoorGames] = useState("");
   const [sportsFacility, setSportsFacility] = useState("");
-  const [atm, setAtm] = useState("");
+  const [resale, setResale] = useState("");
   const [clubhouse, setClubhouse] = useState("");
   const [security, setSecurity] = useState("");
   const [powerbackup, setPowerbackup] = useState("");
   const [carParking, setCarParking] = useState("");
-  const [liftAvailable, setLiftAvailable] = useState("");
+  const [joggingTrack, setJoggingTrack] = useState("");
   const [furnishing, setFurnishing] = useState("");
-  const [wantedPrice, setWantedPrice] = useState("");
-  const [predictedPrice, setPredictedPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [predictedPrice, setPredictedPrice] = useState(0);
+  const [city, setCity] = useState("");
+  const [location, setLocation] = useState("");
+  const [rainWaterHarvesting, setRainWaterHarvesting] = useState("");
+  const [wantedPrice, setWantedPrice] = useState("");
+  const cities = ["Bangalore","Chennai","Delhi","Hyderabad","Kolkata","Mumbai"];
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,9 +68,6 @@ export const AddHouse = () => {
 
   const handleClose = async(e) => {
     setOpen(false);
-    
-      
-    
       if(e == 2) {
         const config = {
           headers: {
@@ -83,12 +88,15 @@ export const AddHouse = () => {
           landscapeGardens: landscapeGardens,
           indoorGames: indoorGames,
           sportsFacility: sportsFacility,
-          atm: atm,
+          resale: resale,
           clubhouse: clubhouse,
           security: security,
           powerbackup: powerbackup,
           carParking: carParking,
-          liftAvailable: liftAvailable,
+          joggingTrack: joggingTrack,
+          rainWaterHarvesting: rainWaterHarvesting,
+          city: city,
+          location: location,
           furnishing: furnishing,
           wantedPrice: wantedPrice,
           predictedPrice: predictedPrice
@@ -109,7 +117,7 @@ export const AddHouse = () => {
             
           }
       
-        }catch(err) {
+        } catch(err) {
           console.log("ERROR...", err);
           Swal.fire({
             position: "top-center",
@@ -130,15 +138,18 @@ export const AddHouse = () => {
       setLandscapeGardens("");
       setIndoorGames("");
       setSportsFacility("");
-      setAtm("");
       setClubhouse("");
       setSecurity("");
       setPowerbackup("");
       setCarParking("");
-      setLiftAvailable("");
       setFurnishing("");
       setWantedPrice("");
       setPredictedPrice("");
+      setCity(null);
+      setLocation(null);
+      setResale("");
+      setJoggingTrack("");
+      setRainWaterHarvesting("");
   };
 
   const handleSubmit = async () => {
@@ -177,7 +188,7 @@ export const AddHouse = () => {
       return;
     }
 
-    if (atm == "" && atm != 0) {
+    if (resale == "" && resale != 0) {
       notify("Please choose one option from atm field...");
       return;
     }
@@ -202,8 +213,13 @@ export const AddHouse = () => {
       return;
     }
 
-    if (liftAvailable == "" && liftAvailable != 0) {
+    if (joggingTrack == "" && joggingTrack != 0) {
       notify("Please choose one option from lift available field...");
+      return;
+    }
+
+    if (rainWaterHarvesting == "" && rainWaterHarvesting != 0) {
+      notify("Please choose one option from furnishing field...");
       return;
     }
 
@@ -212,6 +228,7 @@ export const AddHouse = () => {
       return;
     }
 
+    
     if (wantedPrice == "") {
       notify("Wanted price is required...");
       return;
@@ -232,12 +249,15 @@ export const AddHouse = () => {
       landscapeGardens: landscapeGardens,
       indoorGames: indoorGames,
       sportsFacility: sportsFacility,
-      atm: atm,
+      resale: resale,
       clubhouse: clubhouse,
       security: security,
       powerbackup: powerbackup,
       carParking: carParking,
-      liftAvailable: liftAvailable,
+      joggingTrack: joggingTrack,
+      rainWaterHarvesting: rainWaterHarvesting,
+      city: values[city],
+      location: values[location],
       furnishing: furnishing,
       wantedPrice: wantedPrice,
       predictedPrice: predictedPrice
@@ -274,7 +294,7 @@ export const AddHouse = () => {
         <React.Fragment>
           <React.Fragment>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   name="area"
@@ -291,7 +311,7 @@ export const AddHouse = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   id="noOfBedrooms"
-                  name="lastName"
+                  name="noOfBedrooms"
                   label="No. Of Bedrooms"
                   fullWidth
                   autoComplete="family-name"
@@ -321,6 +341,32 @@ export const AddHouse = () => {
                     <MenuItem value={0}>Gymnasium not want</MenuItem>
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <Autocomplete
+                  value={city}
+                  disablePortal
+                  id="combo-box-demo"
+                  options={cities}
+                  fullWidth
+                  onChange={(event, newValue) => {
+                    setCity(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} label="City" fullWidth />}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Autocomplete
+                  value={location}
+                  disablePortal
+                  id="combo-box-demo"
+                  options={(city!="" && city!=null)?locations[city]:[]}
+                  fullWidth
+                  onChange={(event, newValue) => {
+                    setLocation(newValue)
+                  }}
+                  renderInput={(params) => <TextField {...params} label="Location" fullWidth />}
+                />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -404,20 +450,20 @@ export const AddHouse = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="Atm ">Atm </InputLabel>
+                  <InputLabel id="Resale ">Resale </InputLabel>
                   <Select
-                    labelId="Atm"
+                    labelId="Resale"
                     id="demo-simple-select"
-                    label="Atm"
+                    label="Resale"
                     type="number"
-                    value={atm}
-                    onChange={(event) => setAtm(event.target.value)}
+                    value={resale}
+                    onChange={(event) => setResale(event.target.value)}
                   >
                     <MenuItem value="" disabled selected>
                       --Please select an option--
                     </MenuItem>
-                    <MenuItem value={1}>Atm want</MenuItem>
-                    <MenuItem value={0}>Atm not want</MenuItem>
+                    <MenuItem value={1}>Resaled House</MenuItem>
+                    <MenuItem value={0}>Not Resaled House</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -499,20 +545,39 @@ export const AddHouse = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="Lift Available">Lift Available</InputLabel>
+                  <InputLabel id="Jogging Track">Jogging Track</InputLabel>
                   <Select
-                    labelId="Lift Available"
+                    labelId="Jogging Track"
                     id="demo-simple-select"
-                    label="Lift Available"
+                    label="Jogging Track"
                     type="number"
-                    value={liftAvailable}
-                    onChange={(event) => setLiftAvailable(event.target.value)}
+                    value={joggingTrack}
+                    onChange={(event) => setJoggingTrack(event.target.value)}
                   >
                     <MenuItem value="" disabled selected>
                       --Please select an option--
                     </MenuItem>
-                    <MenuItem value={1}>Lift want</MenuItem>
-                    <MenuItem value={0}>Lift not want</MenuItem>
+                    <MenuItem value={1}>Jogging Track want</MenuItem>
+                    <MenuItem value={0}>Jogging Track not want</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="Rain Water Harvesting">Rain Water Harvesting</InputLabel>
+                  <Select
+                    labelId="Rain Water Harvesting"
+                    id="demo-simple-select"
+                    label="Rain Water Harvesting"
+                    type="number"
+                    value={rainWaterHarvesting}
+                    onChange={(event) => setRainWaterHarvesting(event.target.value)}
+                  >
+                    <MenuItem value="" disabled selected>
+                      --Please select an option--
+                    </MenuItem>
+                    <MenuItem value={1}>Rain Water Harvesting want</MenuItem>
+                    <MenuItem value={0}>Rain Water Harvesting not want</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -540,21 +605,17 @@ export const AddHouse = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  name="firstName"
+                  name="Wanted Price"
                   fullWidth
                   autoComplete="given-name"
                   id="standard-basic"
-                  label="Wanted price"
+                  label="Wanted Price"
                   type="number"
                   variant="standard"
                   value={wantedPrice}
                   onChange={(event) => setWantedPrice(event.target.value)}
                 />
               </Grid>
-              
-
-
-
               <Grid item xs={12}>
                 {loading ? (
                   <CircularProgress />
@@ -565,7 +626,7 @@ export const AddHouse = () => {
                     variant="contained"
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    {"ADD HOUSE"}
+                    {"Add House"}
                   </Button>
                 )}
               </Grid>
