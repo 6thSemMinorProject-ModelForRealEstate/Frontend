@@ -39,6 +39,7 @@ function NavBar(props) {
                 Home
               </NavLink>
             </li>
+    
 
             <li className="nav-item">
               <NavLink
@@ -63,7 +64,17 @@ function NavBar(props) {
                Our Team
               </NavLink>
             </li>
-
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/avlhouse"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Available House
+              </NavLink>
+            </li>
             {
               props.isLogin &&  <li className="nav-item">
               <NavLink
