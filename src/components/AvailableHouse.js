@@ -1,39 +1,9 @@
 import React from "react";
 import pic5 from "../images/Most-Beautiful-House-in-the-World.jpg";
 import { Margin } from "@mui/icons-material";
-import { useState, useEffect } from "react";
-import Axios from "../config/Axios"
 
 export const AvailableHouse = () => {
-    var temp = [1,2,3,4,5,6,7,8,9,10];
-    const [houses, setHouses] = useState([]);
-
-    const getHouses = async()=> {
-        const config = {
-            headers: {
-                "Content-type": "application/json",
-            },
-        };
-        
-        const result = await Axios.get("/house/availableHouses", config);
-        console.log(result.data.houses);
-        let temp = result.data.houses;
-        for(let i = 0; i < temp.length; i++) {
-            console.log(temp[i])
-            const email = await  Axios.post("/auth/getEmailId", {id:temp[i].userId} , config);
-            console.log(email.data.emailId)
-            temp[i]['emailId'] = (email.data.emailId)
-        }
-        console.log(temp)
-        setHouses(temp);
-    } 
-
-    useEffect(()=>{
-        getHouses();
-    }, []);
-
-    
-
+    var temp = [1,2,3,4,5,6,7,8,9,10]
     return (
         <div>
         <div>
@@ -42,7 +12,7 @@ export const AvailableHouse = () => {
           <div class="cards">
         
         {
-            houses.map((item, index)=>{
+            temp.map((item, index)=>{
                 return (<div class="card">
                     <div class="card__image-holder">
                         <img class="card__image" src={pic5} alt="beach" />
@@ -52,16 +22,16 @@ export const AvailableHouse = () => {
                     </div>
                     <div>
                         <div class="card-description">
-                        Area: {item.area}
+                        Area:
                         </div>
                         <div class="card-description">
-                        Location: {item.location}
+                        Location:
                         </div>
                         <div class="card-description">
-                        City: {item.city}
+                        City:
                         </div>
                         <div class="card-description">
-                        Contact Email: {item.emailId}
+                        Contact Email:
                         </div>
                     </div>
                 </div>
