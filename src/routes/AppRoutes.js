@@ -8,6 +8,7 @@ import {AddHouse} from "../components/AddHouse";
 import {Team} from "../components/Team";
 import { useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
+import { AvailableHouse } from "../components/AvailableHouse";
 
 
 
@@ -35,6 +36,7 @@ function AppRoutes() {
         <Route path="/Login" element={<Login setIsLogin = {setIsLogin} />} />
         <Route path="/Signup" element={<Signup setIsLogin = {setIsLogin} />} />
         <Route path={isLogin?"/AddHouse":"/"} element={<AddHouse setIsLogin = {setIsLogin} />} />
+        <Route path="/avlHouse" element={<AvailableHouse />} />
       </Routes>
       <Footer />
       
